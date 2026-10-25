@@ -2,7 +2,7 @@
 name: roblox-discovery-audit
 description: Audit a Roblox game against the 2026 "Recommended for You" discovery rules (28-day retention windows, play-through and first-play bounce rate, intentional co-play, gameplay video, Roblox Kids and Select eligibility, ads and Standout Games, copycat takedowns) and produce a scorecard with fixes. Use this whenever a Roblox developer asks why their game is not getting recommended, how the Roblox algorithm works now, how to get more players, whether their launch or update plan fits the algorithm, or asks for a review of a game's discovery, retention or front-page performance, even if they never say "algorithm" or "audit".
 license: MIT
-allowed-tools: Read, AskUserQuestion
+allowed-tools: Bash, Read, AskUserQuestion
 metadata:
   version: "0.1.0"
   derived-from: "The new rules of the Roblox algorithm (youtube.com/watch?v=RC19PKdRt1Y), fact-checked against Roblox announcements, Oct 2026"
@@ -18,7 +18,7 @@ Read `references/new-rules-2026.md` before scoring. It holds each rule with its 
 
 Score only from evidence. Ask for what is missing, in one round, and say plainly what you assumed when the developer cannot answer. Useful inputs, in priority order:
 
-1. **Stage and dates.** Pre-launch, launched within 28 days, or older. The launch date decides which retention window the game is in.
+1. **Stage and dates.** Pre-launch, launched within 28 days, or mature. For a game inside its first 28 days, the launch date says which window it is in. For a mature game the windows still apply: every new player who arrives through recommendations is scored on their own Day 1, Days 2–7 and Days 8–28, so audit the live game's rolling behaviour (what a newcomer this week experiences and whether they return) rather than the launch history.
 2. **How players arrive.** Share of players from RFY versus ads, search, friends, sponsored sorts or features. Only RFY arrivals feed the retention signals, so a game kept alive by ads can look healthy while its organic ranking decays.
 3. **Retention shape.** Daily peak or DAU for the last four weeks. A chart or a few numbers is enough. Look for the pattern: spike-and-decay versus a steady climb.
 4. **Day 1 experience.** What happens in the first 30 seconds, what the icon and 16:9 thumbnail promise, and whether a gameplay video is uploaded and approved.
@@ -57,6 +57,9 @@ Use this template so results are comparable across games and over time:
 **Stage:** <pre-launch | day N of 28 | mature> · **Main traffic source:** <RFY | ads | ...>
 **Headline:** <one sentence: the single biggest gap and what fixing it unlocks>
 
+## Why this is happening
+<Three to five short points that answer the developer's actual question in plain language before the table. Lead with the mechanism (what RFY measures, what it sees from this game), not with the rule's name.>
+
 | Shift | Mark | Evidence | Fix (owner, effort) |
 |---|---|---|---|
 | 1 · 28-day windows | Pass / At risk / Missing | ... | ... |
@@ -85,4 +88,4 @@ Use this template so results are comparable across games and over time:
 - **Numbers date quickly.** The highly engaged player thresholds changed three times in 2026 and are scheduled to change again. Quote the number with its effective date, and if today is later than January 2027, tell the developer to confirm the current value in the Creator Hub Kids and Select documentation before acting.
 - **Separate official from folklore.** The reference marks which claims Roblox has published and which come from creator trackers. Do not present a tracker's observation as a platform rule.
 - **No metric, no verdict.** When the developer has no retention or bounce data, mark the shift "At risk" with the reason "unmeasured" and name the Creator Hub page that would measure it (Retention, Home personalization metrics, Audience Reach). Do not invent a plausible-sounding number.
-- **Point to companion skills when they exist.** A 28-day calendar is the job of `roblox-launch-plan`; a threshold calculation is the job of `roblox-kids-eligibility`; a video and icon review is the job of `roblox-gameplay-video`. Use them if installed, otherwise cover the essentials here.
+- **Use the companion skills when they are installed.** They ship beside this one: `roblox-launch-plan` (dated 28-day calendar, `scripts/launch_calendar.py`), `roblox-kids-eligibility` (threshold calculator, `scripts/eligibility.py`) and `roblox-gameplay-video` (icon, thumbnail and video review, `scripts/inspect_media.py`). Running their scripts needs Bash. When they are not installed, cover the essentials here and say which deeper check was skipped.
