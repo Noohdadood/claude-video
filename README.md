@@ -329,6 +329,19 @@ Ask the agent to run bundled `setup.py --json` for resolved paths/versions, JS-r
 | POSIX permissions warning | Set the config to mode 0600. Windows ACLs are not audited. Prefer a Linux-home config in WSL; Windows-mounted storage has different permission behavior. |
 | Local install/inference failure | Rerun `setup.py --install-whisperx`; check the reported step, network access, disk/RAM requirements, and wheel compatibility. |
 
+## Roblox discovery skills
+
+The repository also ships four small knowledge skills built from a fact-checked analysis of a 2026 creator explainer on Roblox's recommendation changes. They install the same way as watch (`npx skills add bradautomates/claude-video -g --skill roblox-discovery-audit`, or all at once with the Claude Code plugin):
+
+| Skill | What it does |
+|---|---|
+| `roblox-discovery-audit` | Scores a game against the seven 2026 "Recommended for You" shifts and returns a fix list. |
+| `roblox-launch-plan` | Prints a dated 28-day launch plan around the Day 1 / Days 2–7 / Days 8–28 retention windows. |
+| `roblox-kids-eligibility` | Calculates distance to the highly engaged player threshold that unlocks under-16 audiences, with the threshold schedule. |
+| `roblox-gameplay-video` | Reviews icon, 16:9 thumbnail and gameplay video against the real-gameplay rules; inspects files with ffprobe. |
+
+Each skill quotes its sources and marks what is official versus reported. Thresholds change often; the skills say when to re-check Creator Hub.
+
 ## Development and packaging
 
 ```bash

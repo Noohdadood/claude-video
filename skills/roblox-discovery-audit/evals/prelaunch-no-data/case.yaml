@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: prelaunch-no-data
+expected_outcome: |
+  An audit that scores the pre-launch game without inventing metrics, marks unmeasured shifts as At risk with the Creator Hub page that would measure them, and puts Day 8 planning and the icon promise at the top of the fix list.

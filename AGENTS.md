@@ -8,12 +8,13 @@ Agent Skills package that gives an agent a video input. Installable across Claud
 - `skills/watch/scripts/watch.py` — entry point; orchestrates download → frames → transcript.
 - `skills/watch/scripts/{download,frames,transcribe,whisper,local_whisperx,setup,config,runtime}.py` — yt-dlp wrapper, ffmpeg frame extraction + auto-fps, caption/Whisper transcription, preflight/installer, shared config.
 - `skills/watch/scripts/build-skill.sh` — builds `dist/watch.skill` for claude.ai upload (dev-only).
+- `skills/roblox-*/` — four knowledge skills about Roblox's 2026 discovery rules, derived from a fact-checked video analysis: `roblox-discovery-audit` (seven-shift scorecard; `references/new-rules-2026.md` is the shared fact sheet), `roblox-launch-plan` (`scripts/launch_calendar.py`, dated 28-day plan), `roblox-kids-eligibility` (`scripts/eligibility.py`, highly engaged player thresholds with their effective dates in `SCHEDULE`), `roblox-gameplay-video` (`scripts/inspect_media.py`, ffprobe-based icon/thumbnail/video checks). Each has `evals/` cases in the `claude plugin eval` layout.
 - `hooks/` — Claude Code SessionStart setup-status hook (Claude Code only).
 - `.claude-plugin/` — `plugin.json` + `marketplace.json` (Claude Code plugin + local marketplace).
 - `.codex-plugin/plugin.json` — Codex/agents manifest; `"skills": "./skills/"` points the Agent Skills CLI at the self-contained skill folder.
 - `.agents/plugins/marketplace.json` — agents marketplace listing pointing at the repo-root plugin.
 - `CLAUDE.md` → `@AGENTS.md` — generic-agent entry point.
-- `tests/` — pytest suite (ffmpeg-synthesized clips; no network).
+- `tests/` — pytest suite (ffmpeg-synthesized clips; no network). `test_roblox_skills.py` covers the Roblox skills' frontmatter, eval layout and scripts.
 
 ## Orientation
 
@@ -46,6 +47,7 @@ bash skills/watch/scripts/build-skill.sh   # → dist/watch.skill
 
 ## Rules
 
+- The Roblox skills quote dated thresholds and rules. When Roblox changes them, update the fact sheet, the skill tables, and `SCHEDULE` in `eligibility.py` together, and keep the verification marks (official / reported / creator claim) honest.
 - Keep the version in sync across `skills/watch/SKILL.md` (`metadata.version`), `.claude-plugin/plugin.json`, and `.codex-plugin/plugin.json` when cutting a release.
 - Releasing: tag `vX.Y.Z` and push the tag; `.github/workflows/release.yml` builds `dist/watch.skill` and attaches it to the GitHub release.
 - Never commit real API keys or `.env` contents; keys live in `~/.config/watch/.env` (mode `0600`) at runtime.

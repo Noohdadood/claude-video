@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: dated-plan-for-december-launch
+expected_outcome: |
+  A filled, dated 28-day plan for a launch on 2026-12-05 whose three windows carry the right dates, whose Day 8 beat is a concrete content update that ships on 2026-12-12, and which has weekly beats on or after Days 14, 21 and 28, each with specific content for a co-op tower-defense game.
